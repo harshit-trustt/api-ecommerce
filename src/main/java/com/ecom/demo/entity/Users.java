@@ -2,6 +2,7 @@ package com.ecom.demo.entity;
 
 import jakarta.persistence.*;
 
+//Table creation
 @Entity
 @Table(name = "users")
 public class Users {
