@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -18,7 +19,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
-    public Map<String, Object> register(@RequestBody Users tempUser){
+    public Map<String, Object> register(@RequestBody Users tempUser) {
 
         Map<String, Object> res = new HashMap<>();
         String msg = "";
@@ -26,15 +27,14 @@ public class UserController {
 
         //checking is user already exists
         Users user = userService.findUserByEmail(tempUser.getEmail());
-        if(user==null){
+        if (user == null) {
             //If not registered, register
             user = userService.save(tempUser);
             msg = "Registration Successful";
             suc = true;
             res.put("user", new AuthResponse(
                     user.getId(), user.getName(), user.getEmail(), user.getPhoneNumber()));
-        }
-        else{
+        } else {
             msg = "User Already Exists";
         }
         res.put("message", msg);
@@ -44,7 +44,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public Map<String, Object> login(@RequestBody Users tempUser){
+    public Map<String, Object> login(@RequestBody Users tempUser) {
 
         Map<String, Object> res = new HashMap<>();
         String msg = "";
@@ -52,25 +52,44 @@ public class UserController {
 
         //find User
         Users user = userService.findUserByEmail(tempUser.getEmail());
-        if(user!=null){
+        if (user != null) {
             //authenticate user
-            if(user.getPassword().equals(tempUser.getPassword())){
+            if (user.getPassword().equals(tempUser.getPassword())) {
                 msg = "Authentication Successful";
                 authenticated = true;
                 res.put("user", new AuthResponse(
                         user.getId(), user.getName(), user.getEmail(), user.getPhoneNumber()));
-            }
-            else{
+            } else {
                 msg = "Invalid Credentials";
             }
-        }
-        else{
+        } else {
             msg = "User Not Found";
         }
         res.put("message", msg);
         res.put("success", authenticated);
 
         //return response
+        return res;
+    }
+
+    @GetMapping("/user/{id}")
+    public Map<String, Object> getUserDetail(@PathVariable int id){
+
+        Map<String, Object> res = new HashMap<>();
+        String msg = "";
+        boolean suc = false;
+
+        Optional<Users> user = userService.findUserById(id);
+        if(user.isPresent()){
+            msg = "User found";
+            suc = true;
+            res.put("user", user);
+        }
+        else{
+            msg = "Please Login to access this resource";
+        }
+        res.put("message", msg);
+        res.put("success", suc);
         return res;
     }
 }
