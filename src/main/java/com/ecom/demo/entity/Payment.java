@@ -12,9 +12,7 @@ import lombok.*;
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int payment_id;
-    private String pay_method;
-    @OneToOne(mappedBy = "payment")
-    private Orders order;
+    private int id;
+    private String payMethod;
 
 }

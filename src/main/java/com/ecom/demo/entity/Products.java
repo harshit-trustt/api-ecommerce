@@ -15,14 +15,17 @@ import java.util.List;
 public class Products {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int product_id;
-    @ManyToMany
+    private int id;
+    private String productName;
+    private String productDescription;
+    private Long productPrice;
+    private LocalDate addedOn;
+
+    @ManyToMany(mappedBy = "products")
     private List<Category> category;
 
-    private String product_name;
-    private String product_description;
-    private Long product_price;
-    private LocalDate added_on;
+    @OneToMany(mappedBy = "products")
+    private List<OrderItems> orderItems;
 }
 
 
