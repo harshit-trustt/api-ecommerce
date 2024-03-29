@@ -2,8 +2,13 @@ package com.ecom.demo.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
+//Table creation
 @Entity
 @Table(name = "users")
+
+
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,6 +18,8 @@ public class Users {
     private String email;
     private String phoneNumber;
     private String password;
+
+
 
     public Users(){}
 
