@@ -15,6 +15,7 @@ public class UserService {
     public Users save(Users tempUser) {
         return userRepository.save(tempUser);
     }
+
     public Users findUserByEmail(String email){
         return userRepository.findUserByEmail(email);
     }
@@ -22,3 +23,5 @@ public class UserService {
         return userRepository.findById(theId);
     }
 }
+
+
