@@ -29,4 +29,3 @@ public class Address {
     @ManyToOne
     private Users users;
 }
-
