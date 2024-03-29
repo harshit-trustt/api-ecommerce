@@ -13,10 +13,11 @@ import lombok.NoArgsConstructor;
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int cart_id;
+    private int id;
+
+    private Long totalAmount;
 
     @OneToOne
-    @JoinColumn(name="user_id")
     private Users user;
-    private String total_amount;
+
 }

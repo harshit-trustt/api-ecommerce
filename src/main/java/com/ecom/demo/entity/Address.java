@@ -1,9 +1,6 @@
 package com.ecom.demo.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,17 +12,21 @@ import lombok.NoArgsConstructor;
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int address_id;
-    private Users user_id;
-
+    private int id;
     private String line1;
     private String line2;
     private String landmark;
     private String city;
     private String state;
     private String country;
-    private String address_type;
+
+    @Column(unique = true)
+    private String addressType;
 
     private int pincode;
+
+
+    @ManyToOne
+    private Users users;
 }
 

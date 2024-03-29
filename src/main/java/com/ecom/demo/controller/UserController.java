@@ -10,10 +10,9 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class UserController {
 
-
     @Autowired
     private UserService userService;
-// new line
+    // new line
     @PostMapping("/register")
     public Users register(@RequestBody Users tempUser){
         return userService.save(tempUser);
