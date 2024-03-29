@@ -1,31 +1,14 @@
-package com.ecom.demo.entity;
+package com.ecom.demo.response;
 
-import jakarta.persistence.*;
+public class AuthResponse{
+    int id;
+    String name, email, phoneNumber;
 
-import java.util.List;
-
-//Table creation
-@Entity
-@Table(name = "users")
-public class Users {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    private String name;
-    private String email;
-    private String phoneNumber;
-    private String password;
-
-
-
-    public Users(){}
-
-    public Users(String name, String email, String phoneNumber, String password) {
+    public AuthResponse(int id, String name, String email, String phoneNumber) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.password = password;
     }
 
     public int getId() {
@@ -60,11 +43,13 @@ public class Users {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    @Override
+    public String toString() {
+        return "AuthResponse{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                '}';
     }
 }
