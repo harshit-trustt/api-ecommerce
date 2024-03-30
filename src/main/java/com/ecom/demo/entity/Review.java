@@ -15,9 +15,9 @@ public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String review;
 
-
-    @OneToOne
+    @OneToOne(mappedBy = "review")
     private Orders orders;
 }

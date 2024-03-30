@@ -4,6 +4,8 @@ import com.ecom.demo.entity.Users;
 import com.ecom.demo.response.AuthResponse;
 import com.ecom.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -19,7 +21,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
-    public Map<String, Object> register(@RequestBody Users tempUser) {
+    public ResponseEntity<Map<String, Object>> register(@RequestBody Users tempUser) {
 
         Map<String, Object> res = new HashMap<>();
         String msg = "";
@@ -40,11 +42,11 @@ public class UserController {
         res.put("message", msg);
         res.put("success", suc);
         //return response
-        return res;
+        return new ResponseEntity<>(res, HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
-    public Map<String, Object> login(@RequestBody Users tempUser) {
+    public ResponseEntity<Map<String, Object>> login(@RequestBody Users tempUser) {
 
         Map<String, Object> res = new HashMap<>();
         String msg = "";
@@ -69,7 +71,7 @@ public class UserController {
         res.put("success", authenticated);
 
         //return response
-        return res;
+        return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
     @GetMapping("/user/{id}")
@@ -83,7 +85,7 @@ public class UserController {
         if(user.isPresent()){
             msg = "User found";
             suc = true;
-            res.put("user", user);
+            res.put("user", new AuthResponse(user.get().getId(), user.get().getName(), user.get().getEmail(), user.get().getPhoneNumber()));
         }
         else{
             msg = "Please Login to access this resource";
