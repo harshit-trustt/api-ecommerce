@@ -1,5 +1,6 @@
 package com.ecom.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,12 +19,9 @@ public class Category {
 
     private String categoryType;
 
+//    @OneToMany(mappedBy = "category")
+//    @JsonManagedReference(value = "category")
+//    private List<Products> products;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinTable(
-            name = "category_products",
-            joinColumns = @JoinColumn(name = "category_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
-    private List<Products> products;
+
 }
