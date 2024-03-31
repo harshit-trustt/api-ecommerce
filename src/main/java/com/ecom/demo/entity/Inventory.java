@@ -1,5 +1,6 @@
 package com.ecom.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,12 +18,8 @@ public class Inventory {
 
     private int quantity;
 
-    @OneToMany
-    @JoinColumn(name="category_id")
-    private List<Category> category;
-
-    @OneToMany
-    @JoinColumn(name="product_id")
-    private List<Products> products;
+    @OneToOne(mappedBy = "inventory")
+    @JsonManagedReference(value = "inventory")
+    private Products products;
 
 }

@@ -22,8 +22,6 @@ public class Orders {
     private String orderStatus;
     private Long totalAmount;
 
-
-
     @OneToOne
     @JoinColumn(name="payment_id")
     private Payment payment;
@@ -38,5 +36,9 @@ public class Orders {
 
     @OneToMany(mappedBy = "orders")
     private List<OrderItems> orderItems;
+
+    @OneToOne
+    @JoinColumn(name = "review_id")
+    private Review review;
 
 }

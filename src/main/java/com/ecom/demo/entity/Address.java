@@ -20,7 +20,7 @@ public class Address {
     private String state;
     private String country;
 
-    @Column(unique = true)
+    @Column //(unique = true)
     private String addressType;
 
     private int pincode;
