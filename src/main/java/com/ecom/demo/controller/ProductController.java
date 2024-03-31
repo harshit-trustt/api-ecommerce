@@ -30,4 +30,10 @@ public class ProductController {
 //    {
 //        return productService.getProductByCategory(category_id);
 //    }
+
+
+    @GetMapping("/products/category/{categoryType}")
+    public List<Products> getProductsByCategoryType(@PathVariable String categoryType) {
+        return productService.getProductsByCategoryType(categoryType);
+    }
 }

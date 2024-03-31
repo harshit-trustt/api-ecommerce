@@ -21,4 +21,9 @@ public class ProductService {
 //    {
 //        return productsRepository.findByCategory(category_id);
 //    }
+
+
+    public List<Products> getProductsByCategoryType(String categoryType) {
+        return productsRepository.findByCategoryType(categoryType);
+    }
 }

@@ -24,6 +24,4 @@ public class Products {
     @ManyToMany(mappedBy = "products")
     private List<Category> category;
 
-    @OneToMany(mappedBy = "products")
-    private List<OrderItems> orderItems;
 }
