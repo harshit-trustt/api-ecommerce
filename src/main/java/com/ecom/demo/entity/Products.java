@@ -32,9 +32,10 @@ public class Products {
     @JsonBackReference(value = "inventory")
     private Inventory inventory;
 
-//    @OneToOne
-//    private CartItem cartItem;
+    public Products(int id){
+        this.id = id;
+    }
 
-//    @OneToOne(mappedBy = "product")
-//    private OrderItems orderItem;
+
+
 }
