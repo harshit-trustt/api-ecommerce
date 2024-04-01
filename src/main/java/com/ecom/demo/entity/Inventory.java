@@ -6,8 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,6 +18,6 @@ public class Inventory {
 
     @OneToOne(mappedBy = "inventory")
     @JsonManagedReference(value = "inventory")
-    private Products products;
+    private Product product;
 
 }
