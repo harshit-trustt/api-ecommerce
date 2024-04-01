@@ -19,7 +19,7 @@ public class ProductController {
 
 
     // Get all Products
-    @GetMapping("/products")
+    @GetMapping("/product")
     public List<Products> getAllProducts()
     {
         return productService.getProduct();
@@ -27,7 +27,7 @@ public class ProductController {
 
 
     // Get Products by Category
-    @GetMapping("/products/category/{categoryType}")
+    @GetMapping("/product/category/{categoryType}")
     public List<Products> getProductsByCategoryType(@PathVariable String categoryType) {
         return productService.getProductsByCategoryType(categoryType);
     }
