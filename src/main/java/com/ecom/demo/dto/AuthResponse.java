@@ -1,4 +1,4 @@
-package com.ecom.demo.response;
+package com.ecom.demo.dto;
 
 public class AuthResponse{
     int id;
