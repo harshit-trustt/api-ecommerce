@@ -32,4 +32,16 @@ public class ProductService {
     public List<Products> getProductsByCategoryType(String categoryType) {
         return productsRepository.findByCategoryType(categoryType);
     }
+
+    public void updateById(Products products, int id) {
+        Optional<Products> productOptional = productsRepository.findById(id);
+
+        if (productOptional.isPresent()) {
+            productsRepository.save(products);
+        } else {
+            // Handle the case where the product with the given ID does not exist
+            System.out.println("Product with ID " + id + " not found.");
+        }
+    }
+
 }
