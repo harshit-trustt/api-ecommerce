@@ -20,4 +20,9 @@ public class Inventory {
     @JsonManagedReference(value = "inventory")
     private Product product;
 
+    public Inventory(int id) {
+        this.id = id;
+    }
+
+
 }

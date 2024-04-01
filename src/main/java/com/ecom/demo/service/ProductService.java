@@ -64,7 +64,13 @@ public class ProductService {
 
 
     public void deleteProductById(int id){
-        productsRepository.deleteById(id);
+        Optional<Products> productOptional = productsRepository.findById(id);
+
+        if (productOptional.isPresent()) {
+            productsRepository.deleteById(id);
+        } else {
+            System.out.println("Product with ID " + id + " not found.");
+        }
     }
 
 
@@ -78,7 +84,6 @@ public class ProductService {
         if (productOptional.isPresent()) {
             productsRepository.save(products);
         } else {
-            // Handle the case where the product with the given ID does not exist
             System.out.println("Product with ID " + id + " not found.");
         }
     }
