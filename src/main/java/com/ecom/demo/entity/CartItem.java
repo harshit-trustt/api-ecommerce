@@ -21,5 +21,5 @@ public class CartItem {
 
     @OneToOne
     @JoinColumn(name = "product_id")
-    private Products product;
+    private Product product;
 }

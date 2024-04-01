@@ -1,8 +1,9 @@
 package com.ecom.demo.service;
 
-import com.ecom.demo.entity.Inventory;
-import com.ecom.demo.entity.Products;
-import com.ecom.demo.repository.ProductsRepository;
+import com.ecom.demo.dto.ProductDto;
+import com.ecom.demo.entity.Category;
+import com.ecom.demo.entity.Product;
+import com.ecom.demo.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,15 +14,52 @@ import java.util.Optional;
 public class ProductService {
 
     @Autowired
-    private ProductsRepository productsRepository;
+    private ProductRepository productRepository;
+
+
+    public void addProduct(ProductDto productDto, Category category){
+        Product product = getProductFromDto(productDto, category);
+        productRepository.save(product);
+    }
+
+    public static Product getProductFromDto(ProductDto productDto, Category category){
+        Product product = new Product();
+        product.setCategory(category);
+        product.setProductName(productDto.getProductName());
+        product.setProductPrice(productDto.getProductPrice());
+        product.setProductDescription(productDto.getProductDescription());
+        product.setImageUrl(productDto.getImageUrl());
+        product.setAddedOn(productDto.getAddedOn());
+        return product;
+    }
+
+    public List<Product> listProducts()
+    {
+        return productRepository.findAll();
+    }
+
+    public Optional<Product> readProduct(int id){
+        return productRepository.findById(id);
+    }
+
+    public void updateProduct(int productId, Product newProduct){
+        Product product = readProduct(productId).get();
+        product.setProductName(newProduct.getProductName());
+        product.setProductPrice(newProduct.getProductPrice());
+        product.setProductDescription(newProduct.getProductDescription());
+        product.setImageUrl(newProduct.getImageUrl());
+        product.setAddedOn(newProduct.getAddedOn());
+        productRepository.save(product);
+    }
+
+    public void deleteProductById(int productId){
+        productRepository.deleteById(productId);
+    }
+
+    /*
 
     public Products addProduct(Products prod){
         return productsRepository.save(prod);
-    }
-
-    public List<Products> getProduct()
-    {
-        return productsRepository.findAll();
     }
 
 
@@ -49,5 +87,7 @@ public class ProductService {
             System.out.println("Product with ID " + id + " not found.");
         }
     }
+
+     */
 
 }
