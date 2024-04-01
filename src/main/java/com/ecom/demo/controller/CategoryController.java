@@ -1,23 +1,54 @@
 package com.ecom.demo.controller;
 
+import com.ecom.demo.dto.ApiResponse;
 import com.ecom.demo.entity.Category;
 import com.ecom.demo.service.CategoryService;
 import com.ecom.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
+@RequestMapping("/category")
 public class CategoryController {
 
     @Autowired
-    private CategoryService service;
+    private CategoryService categoryService;
 
-    @GetMapping("/category")
-    public List<Category> allCategories(){
-        return service.getCategories();
+    @GetMapping("/")
+    public ResponseEntity<List<Category>> getCategories(){
+        List<Category> body = categoryService.listCategories();
+        return new ResponseEntity<>(body, HttpStatus.OK);
     }
 
+    @PostMapping("/create")
+    public ResponseEntity<ApiResponse> createCategory(@RequestBody Category category){
+        if(Objects.nonNull(categoryService.readCategory(category.getCategoryType()))){
+            return new ResponseEntity<ApiResponse>(new ApiResponse(false, "Category already exists"), HttpStatus.CONFLICT);
+        }
+        categoryService.createCategory(category);
+        return new ResponseEntity<>(new ApiResponse(true, "category created"), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{categoryID}")
+    public ResponseEntity<ApiResponse> updateCategory(@PathVariable int categoryID, @RequestBody Category category){
+        if(Objects.nonNull(categoryService.readCategory(categoryID))){
+            categoryService.updateCategory(categoryID, category);
+            return new ResponseEntity<>(new ApiResponse(true, "updated the category"), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(new ApiResponse(false, "category does not exists"), HttpStatus.NOT_FOUND);
+    }
+
+    @DeleteMapping("/{categoryID}")
+    public ResponseEntity<ApiResponse> deleteCategory(@PathVariable int categoryID){
+        if(Objects.nonNull(categoryService.readCategory(categoryID))){
+            categoryService.deleteCategoryById(categoryID);
+            return new ResponseEntity<>(new ApiResponse(true, "category deleted"), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(new ApiResponse(false, "category does not exist"), HttpStatus.NOT_FOUND);
+    }
 }
