@@ -9,9 +9,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
+
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,9 +17,32 @@ public class Category {
 
     private String categoryType;
 
-//    @OneToMany(mappedBy = "category")
-//    @JsonManagedReference(value = "category")
-//    private List<Products> products;
+    public Category() {
+    }
+
+    public Category(String categoryType) {
+        this.categoryType = categoryType;
+    }
 
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getCategoryType() {
+        return categoryType;
+    }
+
+    public void setCategoryType(String categoryType) {
+        this.categoryType = categoryType;
+    }
+
+
+    public Category(int id) {
+        this.id = id;
+    }
 }

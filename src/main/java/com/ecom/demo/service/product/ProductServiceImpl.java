@@ -1,4 +1,4 @@
-package com.ecom.demo.service;
+package com.ecom.demo.service.product;
 
 import com.ecom.demo.dto.ProductDto;
 import com.ecom.demo.entity.Category;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ProductService {
+public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductRepository productRepository;
@@ -56,6 +56,15 @@ public class ProductService {
         productRepository.deleteById(productId);
     }
 
+
+    public List<Product> findProductsByCategoryType(String categoryType) {
+        return productRepository.findByCategoryType(categoryType);
+    }
+
+
+    public Product getProductById(int id){
+        return productRepository.findById(id).get();
+    }
     /*
 
     public Products addProduct(Products prod){

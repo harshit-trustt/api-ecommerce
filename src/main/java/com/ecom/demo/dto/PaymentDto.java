@@ -1,24 +1,16 @@
-package com.ecom.demo.entity;
-
-import jakarta.persistence.*;
-import lombok.*;
+package com.ecom.demo.dto;
 
 import java.time.LocalDate;
 
-@Entity
-public class Payment {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class PaymentDto {
+
     private int id;
+
     private String payMethod;
 
     private LocalDate paidOn;
 
-
-    public Payment() {
-    }
-
-    public Payment(String payMethod, LocalDate paidOn) {
+    public PaymentDto(String payMethod, LocalDate paidOn) {
         this.payMethod = payMethod;
         this.paidOn = paidOn;
     }

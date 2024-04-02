@@ -1,4 +1,4 @@
-package com.ecom.demo.service;
+package com.ecom.demo.service.user;
 
 import com.ecom.demo.entity.Users;
 import com.ecom.demo.repository.UserRepository;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class UserService {
+public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
