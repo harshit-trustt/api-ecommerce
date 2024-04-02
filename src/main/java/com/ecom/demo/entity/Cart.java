@@ -22,11 +22,6 @@ public class Cart {
     @OneToMany(mappedBy = "cart")
     private List<CartItem> cartItems = new ArrayList<>();
 
-    public Cart(double totalAmount, Users user){
-        this.setUser(user);
-        this.setTotalAmount(totalAmount);
-    }
-
     public Cart() {
     }
 
@@ -53,7 +48,7 @@ public class Cart {
         return totalAmount;
     }
 
-    public void setTotalAmount(Long totalAmount) {
+    public void setTotalAmount(double totalAmount) {
         this.totalAmount = totalAmount;
     }
 
@@ -72,4 +67,5 @@ public class Cart {
     public void setCartItems(List<CartItem> cartItems) {
         this.cartItems = cartItems;
     }
+
 }

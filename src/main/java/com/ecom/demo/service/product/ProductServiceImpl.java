@@ -68,9 +68,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
 
-    public Product getProductById(int id){
-        return productRepository.findById(id).get();
-    }
     /*
 
     public Products addProduct(Products prod){
