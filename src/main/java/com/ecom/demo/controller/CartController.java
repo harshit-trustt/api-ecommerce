@@ -2,8 +2,9 @@ package com.ecom.demo.controller;
 
 import com.ecom.demo.dto.ApiResponse;
 import com.ecom.demo.dto.CartDto;
-import com.ecom.demo.entity.CartItem;
-import com.ecom.demo.service.CartService;
+import com.ecom.demo.dto.CartResponseDto;
+import com.ecom.demo.service.cart.CartService;
+import com.ecom.demo.service.cart.CartServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,8 +34,8 @@ public class CartController {
 
 
     @GetMapping("/{userID}")
-    public ResponseEntity<List<CartItem>> getCart(@PathVariable int userID){
-        List<CartItem> list = cartService.getCartProducts(cartService.getCartIdByUserId(userID));
+    public ResponseEntity<List<CartResponseDto>> getCart(@PathVariable int userID){
+        List<CartResponseDto> list = cartService.getCartProductsResponse(cartService.getCartIdByUserId(userID));
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
