@@ -59,7 +59,6 @@ public class CartServiceImpl implements CartService{
         Product product = productService.getProductById(cartDto.getpId());
         CartItem cartItem = new CartItem(cartDto.getQuantity(), product, cart);
         cart.getCartItems().add(cartItem);
-        //adding to total cost
         double cost = product.getProductPrice()*cartDto.getQuantity();
         cart.setTotalAmount(cart.getTotalAmount()+cost);
         cartRepository.save(cart);
@@ -101,7 +100,9 @@ public class CartServiceImpl implements CartService{
     }
 
     public List<CartResponseDto> getCartProductsResponse(int cartId){
+        //response List
         List<CartResponseDto> list = new ArrayList<>();
+        //fetched list
         List<CartItem> list2 = cartItemRepository.findAllByCartId(cartId);
         for(CartItem x : list2){
             CartResponseDto temp = new CartResponseDto();
@@ -113,6 +114,7 @@ public class CartServiceImpl implements CartService{
             temp.setTotalPrice(price);
             list.add(temp);
         }
+        //returning response list
         return list;
     }
 
