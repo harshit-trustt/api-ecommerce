@@ -7,6 +7,7 @@ import com.ecom.demo.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,8 +30,13 @@ public class ProductService {
         product.setProductPrice(productDto.getProductPrice());
         product.setProductDescription(productDto.getProductDescription());
         product.setImageUrl(productDto.getImageUrl());
-        product.setAddedOn(productDto.getAddedOn());
+//        product.setAddedOn(productDto.getAddedOn());
+        product.setAddedOn(LocalDate.now());
         return product;
+    }
+
+    public Product getProductById(int id){
+        return productRepository.findById(id).get();
     }
 
     public List<Product> listProducts()

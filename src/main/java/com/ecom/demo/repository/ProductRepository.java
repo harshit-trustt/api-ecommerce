@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product,Integer> {
 
-    @Query("SELECT p FROM Products p JOIN p.category c WHERE c.categoryType = ?1")
-    List<Product> findByCategoryType(String categoryType);
+//    @Query("SELECT p FROM Products p JOIN p.category c WHERE c.categoryType = ?1")
+//    List<Product> findByCategoryType(String categoryType);
 }

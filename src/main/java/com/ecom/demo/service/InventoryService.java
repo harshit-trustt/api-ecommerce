@@ -2,7 +2,7 @@ package com.ecom.demo.service;
 
 import com.ecom.demo.entity.Inventory;
 import com.ecom.demo.repository.InventoryRepository;
-import com.ecom.demo.repository.ProductsRepository;
+import com.ecom.demo.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
