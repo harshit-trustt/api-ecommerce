@@ -4,8 +4,9 @@ import com.ecom.demo.dto.ApiResponse;
 import com.ecom.demo.dto.ProductDto;
 import com.ecom.demo.entity.Category;
 import com.ecom.demo.entity.Product;
-import com.ecom.demo.service.CategoryService;
-import com.ecom.demo.service.ProductService;
+
+import com.ecom.demo.service.category.CategoryService;
+import com.ecom.demo.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -62,6 +63,17 @@ public class ProductController {
             return new ResponseEntity<>(new ApiResponse(true, "product deleted"), HttpStatus.OK);
         }
         return new ResponseEntity<>(new ApiResponse(false, "product does not exist"), HttpStatus.NOT_FOUND);
+    }
+
+
+
+    @GetMapping("/{categoryType}")
+    public ResponseEntity<List<Product>> getProductsByCategoryType(@PathVariable String categoryType) {
+        List<Product> products = productService.findProductsByCategoryType(categoryType);
+        if (products.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
     /*

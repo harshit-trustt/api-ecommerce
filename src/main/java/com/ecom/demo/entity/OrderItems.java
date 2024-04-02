@@ -6,9 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
 public class OrderItems {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,4 +19,46 @@ public class OrderItems {
     private Product product;
 
     private int quantity;
+
+
+    public OrderItems() {
+    }
+
+    public OrderItems(Orders orders, Product product, int quantity) {
+        this.orders = orders;
+        this.product = product;
+        this.quantity = quantity;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Orders getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Orders orders) {
+        this.orders = orders;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 }

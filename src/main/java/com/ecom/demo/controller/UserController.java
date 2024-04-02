@@ -2,7 +2,8 @@ package com.ecom.demo.controller;
 
 import com.ecom.demo.entity.Users;
 import com.ecom.demo.dto.AuthResponse;
-import com.ecom.demo.service.UserService;
+import com.ecom.demo.service.user.UserService;
+import com.ecom.demo.service.user.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

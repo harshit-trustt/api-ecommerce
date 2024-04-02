@@ -2,8 +2,8 @@ package com.ecom.demo.controller;
 
 import com.ecom.demo.dto.ApiResponse;
 import com.ecom.demo.entity.Category;
-import com.ecom.demo.service.CategoryService;
-import com.ecom.demo.service.ProductService;
+import com.ecom.demo.service.category.CategoryService;
+import com.ecom.demo.service.category.CategoryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

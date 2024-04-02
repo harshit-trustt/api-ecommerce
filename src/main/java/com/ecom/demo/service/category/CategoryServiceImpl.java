@@ -1,4 +1,4 @@
-package com.ecom.demo.service;
+package com.ecom.demo.service.category;
 
 import com.ecom.demo.entity.Category;
 import com.ecom.demo.repository.CategoryRepository;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CategoryService {
+public class CategoryServiceImpl implements CategoryService{
 
     @Autowired
     private CategoryRepository categoryRepository;
