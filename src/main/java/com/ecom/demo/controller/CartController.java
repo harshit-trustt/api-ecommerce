@@ -31,11 +31,13 @@ public class CartController {
         return new ResponseEntity<>(new ApiResponse(true, "Added to cart"), HttpStatus.OK);
     }
 
+
     @GetMapping("/{userID}")
     public ResponseEntity<List<CartItem>> getCart(@PathVariable int userID){
         List<CartItem> list = cartService.getCartProducts(cartService.getCartIdByUserId(userID));
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
+
 
     @PutMapping
     public ResponseEntity<ApiResponse> updateCart(@RequestBody CartDto cartDto){
@@ -55,3 +57,4 @@ public class CartController {
         return new ResponseEntity<>(new ApiResponse(false, "Product not found"), HttpStatus.NOT_FOUND);
     }
 }
+

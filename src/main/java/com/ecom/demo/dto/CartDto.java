@@ -1,7 +1,6 @@
 package com.ecom.demo.dto;
 
 import com.ecom.demo.entity.Cart;
-import jakarta.validation.constraints.NotNull;
 
 public class CartDto {
     private int userId;

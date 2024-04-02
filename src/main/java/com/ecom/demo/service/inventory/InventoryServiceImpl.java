@@ -1,8 +1,7 @@
-//package com.ecom.demo.service;
+//package com.ecom.demo.service.inventory;
 //
 //import com.ecom.demo.entity.Inventory;
 //import com.ecom.demo.repository.InventoryRepository;
-//import com.ecom.demo.repository.ProductRepository;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.stereotype.Service;
 //
@@ -10,7 +9,7 @@
 //import java.util.Optional;
 //
 //@Service
-//public class InventoryService {
+//public class InventoryServiceImpl implements InventoryService{
 //
 //    @Autowired
 //    private InventoryRepository inventoryRepository;

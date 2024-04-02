@@ -9,10 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
-
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,4 +27,49 @@ public class Cart {
         this.setTotalAmount(totalAmount);
     }
 
+    public Cart() {
+    }
+
+    public Cart(double totalAmount, Users user, List<CartItem> cartItems) {
+        this.totalAmount = totalAmount;
+        this.user = user;
+        this.cartItems = cartItems;
+    }
+
+    public Cart(double totalAmount, Users user) {
+        this.totalAmount = totalAmount;
+        this.user = user;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public double getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(Long totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
+    }
+
+    public List<CartItem> getCartItems() {
+        return cartItems;
+    }
+
+    public void setCartItems(List<CartItem> cartItems) {
+        this.cartItems = cartItems;
+    }
 }
