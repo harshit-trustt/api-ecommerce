@@ -9,7 +9,6 @@ public class ProductDto {
     private double productPrice;
     private String imageUrl;
     private int categoryId;
-    private final LocalDate addedOn;
 
     public ProductDto(String productName, String productDescription, double productPrice, String imageUrl, int categoryId) {
         this.productName = productName;
@@ -17,7 +16,6 @@ public class ProductDto {
         this.productPrice = productPrice;
         this.imageUrl = imageUrl;
         this.categoryId = categoryId;
-        this.addedOn = LocalDate.now();
     }
 
     public int getId() {
@@ -68,7 +66,7 @@ public class ProductDto {
         this.categoryId = categoryId;
     }
 
-    public LocalDate getAddedOn() {
-        return addedOn;
-    }
+//    public LocalDate getAddedOn() {
+//        return addedOn;
+//    }
 }
