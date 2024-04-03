@@ -20,7 +20,7 @@ public class Payment {
 
     public Payment(String payMethod, LocalDate paidOn) {
         this.payMethod = payMethod;
-        this.paidOn = paidOn;
+        this.paidOn = LocalDate.now();
     }
 
 
@@ -47,4 +47,5 @@ public class Payment {
     public void setPaidOn(LocalDate paidOn) {
         this.paidOn = paidOn;
     }
+
 }

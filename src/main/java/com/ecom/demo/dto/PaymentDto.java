@@ -12,7 +12,7 @@ public class PaymentDto {
 
     public PaymentDto(String payMethod, LocalDate paidOn) {
         this.payMethod = payMethod;
-        this.paidOn = paidOn;
+        this.paidOn = LocalDate.now();
     }
 
 

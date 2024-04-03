@@ -2,13 +2,15 @@ package com.ecom.demo.service.order;
 
 import com.ecom.demo.entity.Orders;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 
 public interface OrderService {
-    void addOrder(Orders orders);
+
+
+    void addOrder(int userId, int addressId,String paymentType);
 
     List<Orders> listOrders();
 
@@ -19,7 +21,8 @@ public interface OrderService {
     void deleteOrderById(int orderId);
 
 
- //   public Page<Orders> findOrdersByUserId(int userId, Pageable pageable);
+
+    //   public Page<Orders> findOrdersByUserId(int userId, Pageable pageable);
 
 
 }
