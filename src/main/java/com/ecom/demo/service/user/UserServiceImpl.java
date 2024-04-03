@@ -23,6 +23,11 @@ public class UserServiceImpl implements UserService {
     public Optional<Users> findUserById(int theId){
         return userRepository.findById(theId);
     }
+
+
+    public Optional<Users> readUsers(int userId){
+        return userRepository.findById(userId);
+    }
 }
 
 
