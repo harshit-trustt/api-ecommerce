@@ -1,7 +1,9 @@
 package com.ecom.demo.controller;
 
+import com.ecom.demo.entity.Customer;
 import com.ecom.demo.entity.Users;
 import com.ecom.demo.dto.AuthResponse;
+import com.ecom.demo.service.customer.CustomerService;
 import com.ecom.demo.service.user.UserService;
 import com.ecom.demo.service.user.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private CustomerService customerService;
+
     @PostMapping("/register")
     public ResponseEntity<Map<String, Object>> register(@RequestBody Users tempUser) {
 
@@ -37,6 +42,8 @@ public class UserController {
             suc = true;
             res.put("user", new AuthResponse(
                     user.getId(), user.getName(), user.getEmail(), user.getPhoneNumber()));
+            Customer customer = new Customer(user);
+            customerService.addCustomer(customer);
         } else {
             msg = "User Already Exists";
         }
