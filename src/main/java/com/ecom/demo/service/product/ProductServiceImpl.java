@@ -30,7 +30,6 @@ public class ProductServiceImpl implements ProductService {
         product.setProductPrice(productDto.getProductPrice());
         product.setProductDescription(productDto.getProductDescription());
         product.setImageUrl(productDto.getImageUrl());
-//        product.setAddedOn(productDto.getAddedOn());
         product.setAddedOn(LocalDate.now());
         return product;
     }
