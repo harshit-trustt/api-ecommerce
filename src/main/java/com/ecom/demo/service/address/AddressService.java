@@ -21,4 +21,6 @@ public interface AddressService {
     public Optional<Address> readAddress(int id);
 
     void updateAddress(int id, Address address);
+
+    void deleteAddressById(int id);
 }

@@ -56,8 +56,12 @@ public class AddressController {
         return new ResponseEntity<>(new ApiResponse(false, "address does not exist"), HttpStatus.NOT_FOUND);
     }
 
-    @DeleteMapping("/{userId}")
-    public void deleteAddressByUserId(@PathVariable int userId) {
-        addressService.deleteAddressByUserId(userId);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse> deleteAddress(@PathVariable int id){
+        if((addressService.readAddress(id)).isPresent()){
+            addressService.deleteAddressById(id);
+            return new ResponseEntity<>(new ApiResponse(true, "address deleted"), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(new ApiResponse(false, "address does not exist"), HttpStatus.NOT_FOUND);
     }
 }
