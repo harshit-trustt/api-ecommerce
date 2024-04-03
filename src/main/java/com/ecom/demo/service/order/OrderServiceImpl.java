@@ -25,10 +25,13 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrdersRepository orderRepository;
 
-
+    @Autowired
     private CartService cartService;
+    @Autowired
     private AddressService addressService;
+    @Autowired
     private UserService userService;
+    @Autowired
     private OrderItemService orderItemService;
 
 
@@ -44,20 +47,21 @@ public class OrderServiceImpl implements OrderService {
         orders.setUsers(userService.findUserById(userId).get());
         orders.setAddress(addressService.readAddress(addressId).get());
         orders.setPayment( new Payment(paymentType, LocalDate.now()));
-        orders.getOrderDate();
-
+        orders.setOrderDate(LocalDateTime.now());
+        orders.setOrderStatus("Confirmed");
+        orderRepository.save(orders);
         List<OrderItems> orderItems = new ArrayList<>();
-        for(CartResponseDto cartResponseDto : list){
+        for(CartResponseDto x : list){
             OrderItems orderItem = new OrderItems();
-            orderItem.setProduct(cartResponseDto.getProduct());
-            orderItem.setQuantity(cartResponseDto.getQuantity());
+            orderItem.setProduct(x.getProduct());
+            orderItem.setQuantity(x.getQuantity());
             orderItem.setOrders(orders);
+            orderItemService.addOrder(orderItem);
             orderItems.add(orderItem);
             cartService.deleteProductById(orderItem.getProduct().getId(),userId);
-            orderItemService.addOrder(orderItem);
         }
-         orderRepository.save(orders);
-
+        orders.setOrderItems(orderItems);
+        orderRepository.save(orders);
     }
 
     @Override

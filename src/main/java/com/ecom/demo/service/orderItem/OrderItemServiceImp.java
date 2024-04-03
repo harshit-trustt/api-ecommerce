@@ -3,7 +3,9 @@ package com.ecom.demo.service.orderItem;
 import com.ecom.demo.entity.OrderItems;
 import com.ecom.demo.repository.OrderItemsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class OrderItemServiceImp implements OrderItemService{
     @Autowired
     private OrderItemsRepository orderItemRepository;

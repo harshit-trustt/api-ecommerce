@@ -18,7 +18,7 @@ public class Orders {
     private String orderStatus;
     private double totalAmount;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="payment_id")
     private Payment payment;
 
@@ -27,11 +27,11 @@ public class Orders {
     private Users usersId;
 
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private Address address;
 
-    @OneToMany(mappedBy = "orders")
+    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
     private List<OrderItems> orderItems;
 
     @OneToOne

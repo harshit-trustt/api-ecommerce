@@ -26,7 +26,7 @@ public class AddressServiceImpl implements AddressService{
     private UserRepository userRepository;
 
     public List<Address> getAddressesByUserId(int userId) {
-        return addressRepository.findByUsers_Id(userId);
+        return addressRepository.findByUsersId(userId);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class AddressServiceImpl implements AddressService{
 
     @Transactional
     public void deleteAddressByUserId(int userId) {
-        addressRepository.deleteByUsers_Id(userId);
+        addressRepository.deleteByUsersId(userId);
     }
 
 
