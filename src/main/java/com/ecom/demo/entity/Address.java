@@ -1,5 +1,6 @@
 package com.ecom.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,6 +25,7 @@ public class Address {
 
 
     @ManyToOne
+    @JsonIgnore
     private Users users;
 
 

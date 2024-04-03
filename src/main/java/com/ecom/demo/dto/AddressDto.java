@@ -2,7 +2,7 @@ package com.ecom.demo.dto;
 
 import com.ecom.demo.entity.Address;
 
-public class AddressDto extends AuthResponse {
+public class AddressDto{
 
     private int id;
     private String line1;
@@ -20,10 +20,9 @@ public class AddressDto extends AuthResponse {
 
     private int pincode;
 
+    private int userId;
 
-    public AddressDto(int id, String name, String email, String phoneNumber, int id1, String line1, String line2, String landmark, String city, String state, String country, String addressType, int pincode) {
-        super(id, name, email, phoneNumber);
-        this.id = id1;
+    public AddressDto(String line1, String line2, String landmark, String city, String state, String country, String addressType, int pincode, int userId) {
         this.line1 = line1;
         this.line2 = line2;
         this.landmark = landmark;
@@ -32,14 +31,14 @@ public class AddressDto extends AuthResponse {
         this.country = country;
         this.addressType = addressType;
         this.pincode = pincode;
+        this.userId = userId;
     }
 
-    @Override
+
     public int getId() {
         return id;
     }
 
-    @Override
     public void setId(int id) {
         this.id = id;
     }
@@ -106,5 +105,13 @@ public class AddressDto extends AuthResponse {
 
     public void setPincode(int pincode) {
         this.pincode = pincode;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }
