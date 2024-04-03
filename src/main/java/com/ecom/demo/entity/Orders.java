@@ -16,14 +16,15 @@ public class Orders {
     private int id;
     private LocalDateTime orderDate;
     private String orderStatus;
-    private Long totalAmount;
+    private double totalAmount;
 
     @OneToOne
     @JoinColumn(name="payment_id")
     private Payment payment;
 
     @ManyToOne
-    private Users users;
+    @JoinColumn(name = "user_id")
+    private Users usersId;
 
 
     @OneToOne
@@ -41,13 +42,11 @@ public class Orders {
     public Orders() {
     }
 
-    public Orders(int id, LocalDateTime orderDate, String orderStatus, Long totalAmount, Payment payment, Users users, Address address, List<OrderItems> orderItems, Review review) {
-        this.id = id;
-        this.orderDate = orderDate;
+    public Orders(LocalDateTime orderDate, String orderStatus, double totalAmount, Users users, Address address, List<OrderItems> orderItems, Review review) {
+        this.orderDate = LocalDateTime.now();
         this.orderStatus = orderStatus;
         this.totalAmount = totalAmount;
-        this.payment = payment;
-        this.users = users;
+        this.usersId= users;
         this.address = address;
         this.orderItems = orderItems;
         this.review = review;
@@ -77,11 +76,11 @@ public class Orders {
         this.orderStatus = orderStatus;
     }
 
-    public Long getTotalAmount() {
+    public double getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(Long totalAmount) {
+    public void setTotalAmount(double totalAmount) {
         this.totalAmount = totalAmount;
     }
 
@@ -94,11 +93,11 @@ public class Orders {
     }
 
     public Users getUsers() {
-        return users;
+        return usersId;
     }
 
     public void setUsers(Users users) {
-        this.users = users;
+        this.usersId = users;
     }
 
     public Address getAddress() {
