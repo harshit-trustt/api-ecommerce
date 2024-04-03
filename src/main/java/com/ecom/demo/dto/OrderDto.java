@@ -1,34 +1,14 @@
 package com.ecom.demo.dto;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-
 public class OrderDto {
-
-    private int paymentId;
     private int userId;
     private int addressId;
-    private int reviewId;
+    private String paymentMethod;
 
-    public OrderDto() {
-    }
-
-    public OrderDto(int paymentId, int userId, int addressId) {
-        this.paymentId = paymentId;
+    public OrderDto(int userId, int addressId, String paymentMethod) {
         this.userId = userId;
         this.addressId = addressId;
-    }
-    public OrderDto(int reviewId)
-    {
-        this.reviewId = reviewId;
-    }
-
-    public int getPaymentId() {
-        return paymentId;
-    }
-
-    public void setPaymentId(int paymentId) {
-        this.paymentId = paymentId;
+        this.paymentMethod = paymentMethod;
     }
 
     public int getUserId() {
@@ -47,11 +27,11 @@ public class OrderDto {
         this.addressId = addressId;
     }
 
-    public int getReviewId() {
-        return reviewId;
+    public String getPaymentMethod() {
+        return paymentMethod;
     }
 
-    public void setReviewId(int reviewId) {
-        this.reviewId = reviewId;
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
 }
