@@ -75,4 +75,9 @@ public class AddressServiceImpl implements AddressService{
         address1.setPincode(address.getPincode());
         addressRepository.save(address1);
     }
+
+    @Override
+    public void deleteAddressById(int id) {
+       addressRepository.deleteById(id);
+    }
 }
