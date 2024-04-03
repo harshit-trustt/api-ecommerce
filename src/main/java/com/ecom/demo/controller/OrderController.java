@@ -1,6 +1,7 @@
 package com.ecom.demo.controller;
 
 import com.ecom.demo.dto.ApiResponse;
+import com.ecom.demo.dto.OrderDto;
 import com.ecom.demo.entity.Orders;
 import com.ecom.demo.service.order.OrderService;
 
@@ -26,8 +27,8 @@ public class OrderController {
 
     // Add new order
     @PostMapping
-    public ResponseEntity<ApiResponse> addOrder(@RequestBody int userId, int addressId, String paymentType) {
-        orderService.addOrder(userId, addressId, paymentType);
+    public ResponseEntity<ApiResponse> addOrder(@RequestBody OrderDto orderDto) {
+        orderService.addOrder(orderDto.getUserId(), orderDto.getAddressId(), orderDto.getPaymentMethod());
         return new ResponseEntity<>(new ApiResponse(true, "Order added"), HttpStatus.CREATED);
 
 

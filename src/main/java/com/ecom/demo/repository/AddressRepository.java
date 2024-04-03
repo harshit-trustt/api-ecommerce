@@ -9,10 +9,10 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface AddressRepository extends JpaRepository<Address,Integer> {
-    List<Address> findByUsers_Id(int userId);
+    List<Address> findByUsersId(int userId);
 
     @Modifying
     @Transactional
     @Query("delete from Address a where a.users.id = ?1")
-    void deleteByUsers_Id(int userId);
+    void deleteByUsersId(int userId);
 }
