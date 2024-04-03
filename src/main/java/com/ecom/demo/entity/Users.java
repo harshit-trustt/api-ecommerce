@@ -1,5 +1,6 @@
 package com.ecom.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 //Table creation
@@ -11,6 +12,8 @@ public class Users {
     private String name;
     private String email;
     private String phoneNumber;
+
+    @JsonIgnore
     private String password;
 
 
