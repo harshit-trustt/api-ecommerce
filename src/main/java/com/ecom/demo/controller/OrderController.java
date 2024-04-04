@@ -50,7 +50,7 @@ public class OrderController {
         }
         return new ResponseEntity<>(new ApiResponse(false, "Order does not exist"), HttpStatus.NOT_FOUND);
     }
-    @GetMapping("/{oderId}")
+    @GetMapping("/{orderId}")
     public ResponseEntity<Orders> getOrder(@PathVariable int orderId) {
         Orders order = orderService.readOrder(orderId).get();
         return new ResponseEntity<>(order, HttpStatus.OK);
