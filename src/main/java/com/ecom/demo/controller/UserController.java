@@ -102,4 +102,9 @@ public class UserController {
         res.put("success", suc);
         return res;
     }
+
+    @GetMapping("/user/{email}")
+    public int getUserIdByEmail(@PathVariable String email){
+        return userService.findUserByEmail(email).getId();
+    }
 }
