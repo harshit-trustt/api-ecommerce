@@ -25,15 +25,6 @@ public class CategoryController {
         return new ResponseEntity<>(body, HttpStatus.OK);
     }
 
-    @GetMapping("/{categoryID}")
-    public ResponseEntity<String> getCategoryById(@PathVariable int categoryID){
-        Category category = categoryService.readCategory(categoryID).get();
-        if(Objects.nonNull(category)){
-            return new ResponseEntity<>(category.getCategoryType(), HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
     @PostMapping("/create")
     public ResponseEntity<ApiResponse> createCategory(@RequestBody Category category){
         if(Objects.nonNull(categoryService.readCategory(category.getCategoryType()))){

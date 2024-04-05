@@ -1,6 +1,7 @@
 package com.ecom.demo.service.product;
 
 import com.ecom.demo.dto.ProductDto;
+import com.ecom.demo.dto.ProductResponseDto;
 import com.ecom.demo.entity.Category;
 import com.ecom.demo.entity.Product;
 
@@ -11,7 +12,7 @@ public interface ProductService {
 
     public void addProduct(ProductDto productDto, Category category);
 
-    public List<ProductDto> listProducts();
+    public List<ProductResponseDto> listProducts();
 
     public Optional<Product> readProduct(int id);
 
