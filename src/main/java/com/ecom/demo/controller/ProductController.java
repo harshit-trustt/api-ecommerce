@@ -2,6 +2,7 @@ package com.ecom.demo.controller;
 
 import com.ecom.demo.dto.ApiResponse;
 import com.ecom.demo.dto.ProductDto;
+import com.ecom.demo.dto.ProductResponseDto;
 import com.ecom.demo.entity.Category;
 import com.ecom.demo.entity.Product;
 
@@ -42,8 +43,8 @@ public class ProductController {
 
     //Get All Products
     @GetMapping("/")
-    public ResponseEntity<List<ProductDto>> getProducts(){
-        List<ProductDto> body = productService.listProducts();
+    public ResponseEntity<List<ProductResponseDto>> getProducts(){
+        List<ProductResponseDto> body = productService.listProducts();
         return new ResponseEntity<>(body, HttpStatus.OK);
     }
 

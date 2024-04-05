@@ -1,9 +1,11 @@
 package com.ecom.demo.service.product;
 
 import com.ecom.demo.dto.ProductDto;
+import com.ecom.demo.dto.ProductResponseDto;
 import com.ecom.demo.entity.Category;
 import com.ecom.demo.entity.Product;
 import com.ecom.demo.repository.ProductRepository;
+import com.ecom.demo.service.category.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private CategoryService categoryService;
 
 
     public void addProduct(ProductDto productDto, Category category){
@@ -39,14 +44,14 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findById(id).get();
     }
 
-    public List<ProductDto> listProducts()
+    public List<ProductResponseDto> listProducts()
     {
         List<Product> tempList = productRepository.findAll();
-        List<ProductDto> list = new ArrayList<>();
+        List<ProductResponseDto> list = new ArrayList<>();
         for(Product x : tempList){
-            ProductDto productDto = new ProductDto(x.getProductName(), x.getProductDescription(), x.getProductPrice(), x.getImageUrl(), x.getCategory().getId());
-            productDto.setId(x.getId());
-            list.add(productDto);
+            //create using constructor
+            ProductResponseDto productResponseDto = new ProductResponseDto(x.getProductName(), x.getProductDescription(), x.getProductPrice(), x.getImageUrl(), x.getCategory().getId(), x.getCategory().getCategoryType());
+            list.add(productResponseDto);
         }
         return list;
     }
