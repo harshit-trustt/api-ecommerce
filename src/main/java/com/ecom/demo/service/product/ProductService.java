@@ -11,7 +11,7 @@ public interface ProductService {
 
     public void addProduct(ProductDto productDto, Category category);
 
-    public List<Product> listProducts();
+    public List<ProductDto> listProducts();
 
     public Optional<Product> readProduct(int id);
 
