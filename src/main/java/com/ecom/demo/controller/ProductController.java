@@ -42,8 +42,8 @@ public class ProductController {
 
     //Get All Products
     @GetMapping("/")
-    public ResponseEntity<List<Product>> getProducts(){
-        List<Product> body = productService.listProducts();
+    public ResponseEntity<List<ProductDto>> getProducts(){
+        List<ProductDto> body = productService.listProducts();
         return new ResponseEntity<>(body, HttpStatus.OK);
     }
 
@@ -75,41 +75,4 @@ public class ProductController {
         }
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
-
-    /*
-    // Get all Products
-    @GetMapping("/product")
-    public List<Products> getAllProducts()
-    {
-        return productService.getProduct();
-    }
-
-
-    // Get Products by Category
-    @GetMapping("/product/category/{categoryType}")
-    public List<Products> getProductsByCategoryType(@PathVariable String categoryType) {
-        return productService.getProductsByCategoryType(categoryType);
-    }
-
-    //Add Product
-    @PostMapping("/product")
-    public ResponseEntity<Products> addProduct(@RequestBody Products prod){
-        Products addedProd = productService.addProduct(prod);
-        return new ResponseEntity<>(addedProd, HttpStatus.CREATED);
-    }
-
-    //Delete Product
-    @DeleteMapping("/product/{id}")
-    public ResponseEntity<String> deleteProduct(@PathVariable int id){
-        productService.deleteProductById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @PutMapping("/product/{id}")
-    public void UpdateProduct(@PathVariable int id,@RequestBody Products products)
-    {
-        productService.updateById(products,id);
-    }
-
-     */
 }

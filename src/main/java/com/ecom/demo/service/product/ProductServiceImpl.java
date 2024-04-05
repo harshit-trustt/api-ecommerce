@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,9 +39,16 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findById(id).get();
     }
 
-    public List<Product> listProducts()
+    public List<ProductDto> listProducts()
     {
-        return productRepository.findAll();
+        List<Product> tempList = productRepository.findAll();
+        List<ProductDto> list = new ArrayList<>();
+        for(Product x : tempList){
+            ProductDto productDto = new ProductDto(x.getProductName(), x.getProductDescription(), x.getProductPrice(), x.getImageUrl(), x.getCategory().getId());
+            productDto.setId(x.getId());
+            list.add(productDto);
+        }
+        return list;
     }
 
     public Optional<Product> readProduct(int id){
