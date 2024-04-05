@@ -1,5 +1,6 @@
 package com.ecom.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,6 +33,7 @@ public class Orders {
     private Address address;
 
     @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<OrderItems> orderItems;
 
     @OneToOne
