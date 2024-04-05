@@ -50,7 +50,7 @@ public class ProductServiceImpl implements ProductService {
         List<ProductResponseDto> list = new ArrayList<>();
         for(Product x : tempList){
             //create using constructor
-            ProductResponseDto productResponseDto = new ProductResponseDto(x.getProductName(), x.getProductDescription(), x.getProductPrice(), x.getImageUrl(), x.getCategory().getId(), x.getCategory().getCategoryType());
+            ProductResponseDto productResponseDto = new ProductResponseDto(x.getId(), x.getProductName(), x.getProductDescription(), x.getProductPrice(), x.getImageUrl(), x.getCategory().getId(), x.getCategory().getCategoryType());
             list.add(productResponseDto);
         }
         return list;

@@ -4,9 +4,10 @@ public class ProductResponseDto extends ProductDto{
 
     private String categoryType;
 
-    public ProductResponseDto(String productName, String productDescription, double productPrice, String imageUrl, int categoryId, String categiryType) {
+    public ProductResponseDto(int id, String productName, String productDescription, double productPrice, String imageUrl, int categoryId, String categiryType) {
         super(productName, productDescription, productPrice, imageUrl, categoryId);
         this.categoryType = categiryType;
+        this.setId(id);
     }
 
     public String getCategoryType() {
