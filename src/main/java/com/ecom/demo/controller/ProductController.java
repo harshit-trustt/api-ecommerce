@@ -31,6 +31,24 @@ public class ProductController {
     @Autowired
     private CategoryService categoryService;
 
+    @Operation(summary = "insert list of products", description = "Inserts list of products")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "201", description = "Successfully Inserted"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "Couldn't insert the Product")
+    })
+    @PostMapping
+    public ResponseEntity<ApiResponse> addProducts(@RequestBody List<ProductDto> productDtoList){
+        for(ProductDto productDto: productDtoList){
+            Optional<Category> optionalCategory = categoryService.readCategory(productDto.getCategoryId());
+            if(!optionalCategory.isPresent()){
+                return new ResponseEntity<>(new ApiResponse(false, "category is invalid"), HttpStatus.CONFLICT);
+            }
+            Category category = optionalCategory.get();
+            productService.addProduct(productDto, category);
+        }
+        return new ResponseEntity<>(new ApiResponse(true, "Products have been added"), HttpStatus.CREATED);
+    }
+
 
     @Operation(summary = "insert the product", description = "Inserts the product")
     @ApiResponses(value = {
