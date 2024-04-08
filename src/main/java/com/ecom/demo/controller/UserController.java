@@ -6,6 +6,8 @@ import com.ecom.demo.dto.AuthResponse;
 import com.ecom.demo.service.customer.CustomerService;
 import com.ecom.demo.service.user.UserService;
 import com.ecom.demo.service.user.UserServiceImpl;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +28,11 @@ public class UserController {
     @Autowired
     private CustomerService customerService;
 
+    @Operation(summary = "Register a User", description = "Registers a User")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "201", description = "Successfully Inserted"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "Couldn't add the User")
+    })
     @PostMapping("/register")
     public ResponseEntity<Map<String, Object>> register(@RequestBody Users tempUser) {
 
@@ -53,6 +60,11 @@ public class UserController {
         return new ResponseEntity<>(res, HttpStatus.CREATED);
     }
 
+    @Operation(summary = "Login a User", description = "Logs in a User")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Successfully Logged In"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "Invalid Credentials")
+    })
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> login(@RequestBody Users tempUser) {
 
@@ -82,6 +94,11 @@ public class UserController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
+    @Operation(summary = "Get a User by UserID", description = "Returns a User as per the UserID")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Successfully retrieved"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "Not found - The User was not found")
+    })
     @GetMapping("/user/{id}")
     public Map<String, Object> getUserDetail(@PathVariable int id){
 
@@ -103,7 +120,13 @@ public class UserController {
         return res;
     }
 
-    @GetMapping("/user/{email}")
+
+    @Operation(summary = "Get a User by Email", description = "Returns a User as per the Email")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Successfully retrieved"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "Not found - The User was not found")
+    })
+    @GetMapping("/user/email/{email}")
     public int getUserIdByEmail(@PathVariable String email){
         return userService.findUserByEmail(email).getId();
     }
