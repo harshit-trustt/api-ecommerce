@@ -7,6 +7,8 @@ import com.ecom.demo.entity.Product;
 import com.ecom.demo.service.cart.CartService;
 import com.ecom.demo.service.cart.CartServiceImpl;
 import com.ecom.demo.service.product.ProductService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +28,12 @@ public class CartController {
     private ProductService productService;
 
     //Add to cart
+
+    @Operation(summary = "insert into cart", description = "Inserts into address")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "201", description = "Successfully Inserted"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "Couldn't insert into cart")
+    })
     @PostMapping("/add")
     public ResponseEntity<ApiResponse> addToCart(@RequestBody CartDto cartDto){
         int userId = cartDto.getUserId();
@@ -42,6 +50,11 @@ public class CartController {
     }
 
 
+    @Operation(summary = "Get a Cart by Userid", description = "Returns a Cart as per the Userid")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Successfully retrieved"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "Not found - The Employee was not found")
+    })
     @GetMapping("/{userID}")
     public ResponseEntity<List<CartResponseDto>> getCart(@PathVariable int userID){
         List<CartResponseDto> list = cartService.getCartProductsResponse(cartService.getCartIdByUserId(userID));
@@ -49,6 +62,11 @@ public class CartController {
     }
 
 
+    @Operation(summary = "Update a Cart by id", description = "Updates a Cart as per the id")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Successfully Updated"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "Not found - The cart was not found")
+    })
     @PutMapping
     public ResponseEntity<ApiResponse> updateCart(@RequestBody CartDto cartDto){
         boolean res = cartService.updateCart(cartDto);
@@ -58,6 +76,11 @@ public class CartController {
         return new ResponseEntity<>(new ApiResponse(false, "operation not performed"), HttpStatus.CONFLICT);
     }
 
+    @Operation(summary = "Delete a Cart by id", description = "Deletes a Cart as per the id")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Successfully Deleted"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "Not found - The cart was not found")
+    })
     @DeleteMapping("/{userId}/{pId}")
     public ResponseEntity<ApiResponse> deleteFromCart(@PathVariable int userId, @PathVariable int pId){
         boolean suc = cartService.deleteProductById(pId, userId);
