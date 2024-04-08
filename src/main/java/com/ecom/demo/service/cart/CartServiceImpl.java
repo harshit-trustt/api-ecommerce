@@ -61,6 +61,8 @@ public class CartServiceImpl implements CartService{
         cart.getCartItems().add(cartItem);
         double cost = product.getProductPrice()*cartDto.getQuantity();
         cart.setTotalAmount(cart.getTotalAmount()+cost);
+        product.setQuantity(product.getQuantity()-cartDto.getQuantity());
+        productService.updateProduct(product.getId(), product);
         cartRepository.save(cart);
         cartItemRepository.save(cartItem);
     }
@@ -73,12 +75,32 @@ public class CartServiceImpl implements CartService{
             if(cartHasProduct(cartDto.getpId(), cartId)){
                 CartItem cartItem = cartItemRepository.getCartItemByProductId(cartDto.getpId());
                 Product product = productService.getProductById(cartDto.getpId());
-                int changeInQuantity = cartItem.getQuantity() - cartDto.getQuantity();
-                cartItem.setQuantity(cartDto.getQuantity());
-                cartItemRepository.save(cartItem);
-                cart.setTotalAmount(cart.getTotalAmount() + (changeInQuantity*product.getProductPrice()));
-                cartRepository.save(cart);
-                return true;
+                int initialQuantity = cartItem.getQuantity();
+                int finalQuantity = cartDto.getQuantity();
+                int changeInQuantity = finalQuantity - initialQuantity;
+                if(changeInQuantity>0){
+                    if(product.getQuantity()>=changeInQuantity){
+                        cartItem.setQuantity(finalQuantity);
+                        cartItemRepository.save(cartItem);
+                        cart.setTotalAmount(cart.getTotalAmount() + (changeInQuantity*product.getProductPrice()));
+                        cartRepository.save(cart);
+                        product.setQuantity(product.getQuantity()-changeInQuantity);
+                        productService.updateProduct(product.getId(), product);
+                        return true;
+                    }
+                    else{
+                        return false;
+                    }
+                }
+                else{
+                    cartItem.setQuantity(finalQuantity);
+                    cartItemRepository.save(cartItem);
+                    cart.setTotalAmount(cart.getTotalAmount() + (changeInQuantity*product.getProductPrice()));
+                    cartRepository.save(cart);
+                    product.setQuantity(product.getQuantity()-changeInQuantity);
+                    productService.updateProduct(product.getId(), product);
+                    return true;
+                }
             }
         }
         return false;
@@ -126,6 +148,14 @@ public class CartServiceImpl implements CartService{
     public boolean deleteProductById(int pId, int userId){
         int cartId = getCartIdByUserId(userId);
         if(cartHasProduct(pId, cartId)){
+            Product product = productService.getProductById(pId);
+            CartItem cartItem = cartItemRepository.getCartItemByProductId(pId);
+            product.setQuantity(product.getQuantity()+cartItem.getQuantity());
+            productService.updateProduct(pId, product);
+            Cart cart = cartRepository.findByUserId(userId);
+            double cost = cart.getTotalAmount() - (product.getProductPrice()*cartItem.getQuantity());
+            cart.setTotalAmount(cost);
+            cartRepository.save(cart);
             cartItemRepository.deleteByProductId(pId);
             return true;
         }

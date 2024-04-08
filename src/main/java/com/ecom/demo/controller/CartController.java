@@ -3,8 +3,10 @@ package com.ecom.demo.controller;
 import com.ecom.demo.dto.ApiResponse;
 import com.ecom.demo.dto.CartDto;
 import com.ecom.demo.dto.CartResponseDto;
+import com.ecom.demo.entity.Product;
 import com.ecom.demo.service.cart.CartService;
 import com.ecom.demo.service.cart.CartServiceImpl;
+import com.ecom.demo.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,9 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
+    @Autowired
+    private ProductService productService;
+
     //Add to cart
     @PostMapping("/add")
     public ResponseEntity<ApiResponse> addToCart(@RequestBody CartDto cartDto){
@@ -27,6 +32,10 @@ public class CartController {
         int cartId = cartService.getCartIdByUserId(userId);
         if(cartId==-1){
             return new ResponseEntity<>(new ApiResponse(false, "User does not exist"), HttpStatus.NOT_FOUND);
+        }
+        Product product = productService.getProductById(cartDto.getpId());
+        if(cartDto.getQuantity() > product.getQuantity()){
+            return new ResponseEntity<>(new ApiResponse(false, "Quantity not available"), HttpStatus.BAD_REQUEST);
         }
         cartService.addToCart(cartDto, cartId);
         return new ResponseEntity<>(new ApiResponse(true, "Added to cart"), HttpStatus.OK);
@@ -46,7 +55,7 @@ public class CartController {
         if(res){
             return new ResponseEntity<>(new ApiResponse(true, "product updated"), HttpStatus.OK);
         }
-        return new ResponseEntity<>(new ApiResponse(true, "success"), HttpStatus.OK);
+        return new ResponseEntity<>(new ApiResponse(false, "operation not performed"), HttpStatus.CONFLICT);
     }
 
     @DeleteMapping("/{userId}/{pId}")

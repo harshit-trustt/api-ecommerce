@@ -1,5 +1,6 @@
 package com.ecom.demo.repository;
 
+import com.ecom.demo.entity.Cart;
 import com.ecom.demo.entity.CartItem;
 import com.ecom.demo.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;

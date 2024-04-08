@@ -30,8 +30,6 @@ public class OrderController {
     public ResponseEntity<ApiResponse> addOrder(@RequestBody OrderDto orderDto) {
         orderService.addOrder(orderDto.getUserId(), orderDto.getAddressId(), orderDto.getPaymentMethod());
         return new ResponseEntity<>(new ApiResponse(true, "Order added"), HttpStatus.CREATED);
-
-
     }
 
 
