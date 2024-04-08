@@ -4,8 +4,8 @@ public class ProductResponseDto extends ProductDto{
 
     private String categoryType;
 
-    public ProductResponseDto(int id, String productName, String productDescription, double productPrice, String imageUrl, int categoryId, String categiryType) {
-        super(productName, productDescription, productPrice, imageUrl, categoryId);
+    public ProductResponseDto(int id, String productName, String productDescription, double productPrice, String imageUrl, int categoryId, String categiryType, int quantity) {
+        super(productName, productDescription, productPrice, imageUrl, categoryId, quantity);
         this.categoryType = categiryType;
         this.setId(id);
     }

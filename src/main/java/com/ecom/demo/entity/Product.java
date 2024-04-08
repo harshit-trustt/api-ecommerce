@@ -20,7 +20,7 @@ public class Product {
     private String imageUrl;
     private LocalDate addedOn;
 
-    //private int quantity;
+    private int quantity;
 
     // Add the category field to hold the reference to the Category entity
     @ManyToOne(fetch = FetchType.LAZY)
@@ -96,6 +96,13 @@ public class Product {
         this.category = category;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 
     public Product(int id) {
         this.id = id;

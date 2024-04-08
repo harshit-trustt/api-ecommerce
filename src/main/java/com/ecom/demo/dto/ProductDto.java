@@ -7,15 +7,26 @@ public class ProductDto {
     private String productName;
     private String productDescription;
     private double productPrice;
+
+    private int quantity;
     private String imageUrl;
     private int categoryId;
 
-    public ProductDto(String productName, String productDescription, double productPrice, String imageUrl, int categoryId) {
+    public ProductDto(String productName, String productDescription, double productPrice, String imageUrl, int categoryId, int quantity) {
         this.productName = productName;
         this.productDescription = productDescription;
         this.productPrice = productPrice;
         this.imageUrl = imageUrl;
         this.categoryId = categoryId;
+        this.quantity = quantity;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public int getId() {
