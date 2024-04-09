@@ -5,6 +5,7 @@ import com.ecom.demo.dto.OrderDto;
 import com.ecom.demo.entity.Orders;
 import com.ecom.demo.service.order.OrderService;
 
+import com.ecom.demo.service.user.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.persistence.criteria.Order;
@@ -16,7 +17,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @RestController
@@ -26,6 +29,8 @@ public class OrderController {
 
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private UserService userService;
 
     // Add new order
     @Operation(summary = "insert the order", description = "Inserts the order")
@@ -75,6 +80,32 @@ public class OrderController {
     public ResponseEntity<Orders> getOrder(@PathVariable int orderId) {
         Orders order = orderService.readOrder(orderId).get();
         return new ResponseEntity<>(order, HttpStatus.OK);
+    }
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<
+            Map<String, Object>> getOrdersByUserId(@PathVariable int userId) {
+        Map<String, Object> res = new HashMap<>();
+        String msg = "";
+        boolean suc = false;
+
+        if (userService.userExists(userId)) {
+            List<Orders> orders = orderService.findOrdersByUserId(userId);
+            if(!orders.isEmpty()){
+                msg = "Orders found";
+                suc = true;
+                res.put("orders", orders);
+            }
+            else{
+                msg = "No orders found for this user";
+                suc = false;
+            }
+        } else {
+            msg = "User does not exist";
+            suc = false;
+        }
+        res.put("message", msg);
+        res.put("success", suc);
+        return new ResponseEntity<>(res, HttpStatus.OK);
     }
 }
 

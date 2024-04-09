@@ -28,6 +28,11 @@ public class UserServiceImpl implements UserService {
     public Optional<Users> readUsers(int userId){
         return userRepository.findById(userId);
     }
+
+    @Override
+    public boolean userExists(int userId) {
+        return userRepository.existsById(userId);
+    }
 }
 
 

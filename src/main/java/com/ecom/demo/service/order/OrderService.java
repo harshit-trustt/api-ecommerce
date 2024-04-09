@@ -20,6 +20,7 @@ public interface OrderService {
 
     void deleteOrderById(int orderId);
 
+    List<Orders> findOrdersByUserId(int userId);
 
 
     //   public Page<Orders> findOrdersByUserId(int userId, Pageable pageable);

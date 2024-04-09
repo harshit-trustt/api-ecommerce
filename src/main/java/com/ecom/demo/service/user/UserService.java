@@ -13,4 +13,6 @@ public interface UserService {
     public Optional<Users> findUserById(int theId);
 
     public Optional<Users> readUsers(int userId);
+
+    boolean userExists(int userId);
 }
