@@ -1,9 +1,8 @@
 package com.ecom.demo.service.order;
 
+import com.ecom.demo.dto.ApiResponse;
 import com.ecom.demo.dto.CartResponseDto;
-import com.ecom.demo.entity.OrderItems;
-import com.ecom.demo.entity.Orders;
-import com.ecom.demo.entity.Payment;
+import com.ecom.demo.entity.*;
 import com.ecom.demo.repository.OrdersRepository;
 import com.ecom.demo.service.address.AddressService;
 import com.ecom.demo.service.cart.CartService;
@@ -11,6 +10,8 @@ import com.ecom.demo.service.orderItem.OrderItemService;
 import com.ecom.demo.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 
@@ -44,8 +45,21 @@ public class OrderServiceImpl implements OrderService {
             totalAmount+=cartResponseDto.getTotalPrice();
         }
         orders.setTotalAmount(totalAmount);
-        orders.setUsers(userService.findUserById(userId).get());
-        orders.setAddress(addressService.readAddress(addressId).get());
+        Optional<Users> userOptional = userService.findUserById(userId);
+        if (userOptional.isPresent()) {
+        orders.setUsers(userOptional.get());
+        }
+        else {
+            System.out.println("User not found");
+        }
+        Optional<Address> addressOptional = addressService.readAddress(addressId);
+        if (addressOptional.isPresent()) {
+            orders.setAddress(addressOptional.get());
+        }
+        else {
+        System.out.println("Address not found");
+    }
+       // orders.setAddress(addressService.readAddress(addressId).get());
         orders.setPayment( new Payment(paymentType, LocalDate.now()));
         orders.setOrderDate(LocalDateTime.now());
         orders.setOrderStatus("Confirmed");
@@ -86,6 +100,10 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.deleteById(orderId);
     }
 
+    @Override
+    public List<Orders> findOrdersByUserId(int userId) {
+        return orderRepository.findOrdersByUserId(userId);
+    }
 
 
 //
