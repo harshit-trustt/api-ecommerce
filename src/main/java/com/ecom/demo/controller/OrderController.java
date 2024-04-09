@@ -107,5 +107,22 @@ public class OrderController {
         res.put("success", suc);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
+
+
+    @Operation(summary = "Update Order Status by OrderID", description = "Updates Order Status as per the OrderID")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Successfully Updates"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "Not found - The Order was not found")
+    })
+    @PutMapping("/orderStatus/{orderId}")
+    public ResponseEntity<ApiResponse> updateOrderStatus(@PathVariable int orderId, @RequestBody String orderStatus) {
+        if (Objects.nonNull(orderService.readOrder(orderId))) {
+            Orders orders = orderService.readOrder(orderId).get();
+            orders.setOrderStatus(orderStatus);
+            orderService.updateOrder(orderId, orders);
+            return new ResponseEntity<>(new ApiResponse(true, "Order status updated"), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(new ApiResponse(false, "Order does not exist"), HttpStatus.NOT_FOUND);
+    }
 }
 
