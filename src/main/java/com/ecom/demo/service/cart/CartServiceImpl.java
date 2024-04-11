@@ -73,7 +73,8 @@ public class CartServiceImpl implements CartService{
         if(cartId!=-1){
             Cart cart = getCartByCartId(cartId);
             if(cartHasProduct(cartDto.getpId(), cartId)){
-                CartItem cartItem = cartItemRepository.getCartItemByProductId(cartDto.getpId());
+//                CartItem cartItem = cartItemRepository.getCartItemByProductId(cartDto.getpId());
+                CartItem cartItem = cartItemRepository.getCartItemByCartAndProduct(cart, productService.getProductById(cartDto.getpId()));
                 Product product = productService.getProductById(cartDto.getpId());
                 int initialQuantity = cartItem.getQuantity();
                 int finalQuantity = cartDto.getQuantity();
@@ -137,6 +138,7 @@ public class CartServiceImpl implements CartService{
             list.add(temp);
         }
         //returning response list
+//        System.out.println(list);
         return list;
     }
 
@@ -149,7 +151,8 @@ public class CartServiceImpl implements CartService{
         int cartId = getCartIdByUserId(userId);
         if(cartHasProduct(pId, cartId)){
             Product product = productService.getProductById(pId);
-            CartItem cartItem = cartItemRepository.getCartItemByProductId(pId);
+//            CartItem cartItem = cartItemRepository.getCartItemByProductId(pId);
+            CartItem cartItem = cartItemRepository.getCartItemByCartAndProduct(getCartByCartId(cartId), product);
             product.setQuantity(product.getQuantity()+cartItem.getQuantity());
             productService.updateProduct(pId, product);
             Cart cart = cartRepository.findByUserId(userId);
